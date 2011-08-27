@@ -29,9 +29,14 @@ namespace ClipimageToFile
             try
             {
                 Bitmap b = (Bitmap)o;
-                SaveFileDialog ofd = new SaveFileDialog();
-                ofd.Title = b.Width + "x" + b.Height + " - " + Application.ProductName;
-                ofd.AddExtension = true;
+
+                CustomControls.FormSaveFileDialog ofd = new CustomControls.FormSaveFileDialog();
+                ofd.pbxPreview.Image = (Bitmap)b.Clone();
+                ofd.lblColorsValue.Text = ofd.GetColorsCountFromImage(ofd.pbxPreview.Image);
+                ofd.lblFormatValue.Text = ofd.GetFormatFromImage(ofd.pbxPreview.Image);
+
+                ofd.OpenDialog.Title = b.Width + "x" + b.Height + " - " + Application.ProductName;
+                ofd.OpenDialog.AddExtension = true;
 
                 System.Collections.ArrayList arFilers = new System.Collections.ArrayList();
                 string filter = string.Empty;
@@ -40,23 +45,26 @@ namespace ClipimageToFile
                 {
                     if ((codec.Flags & ImageCodecFlags.Encoder) != 0)
                     {
-                        string ext = codec.FilenameExtension;
-                        ext = ext.Split(';')[0];
-                        ext = ext.ToLower();
-                        filter += codec.FormatDescription + " (" + ext + ")|" + ext + "|";
+                        if(ImageFormat.Gif.Guid != codec.FormatID)
+                        {
+                            string ext = codec.FilenameExtension;
+                            ext = ext.Split(';')[0];
+                            ext = ext.ToLower();
+                            filter += codec.FormatDescription + " (" + ext + ")|" + ext + "|";
 
-                        arFilers.Add(codec);
+                            arFilers.Add(codec);
+                        }
                     }
                 }
-                ofd.Filter = filter.TrimEnd('|');
+                ofd.OpenDialog.Filter = filter.TrimEnd('|');
                 if (DialogResult.OK != ofd.ShowDialog())
                     return;
 
-                ImageCodecInfo ici = (ImageCodecInfo)arFilers[ofd.FilterIndex - 1];
+                ImageCodecInfo ici = (ImageCodecInfo)arFilers[ofd.OpenDialog.FilterIndex - 1];
 
                 EncoderParameters encoderParameters = new EncoderParameters(1);
                 encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, 100L);
-                b.Save(ofd.FileName, ici, encoderParameters);
+                b.Save(ofd.OpenDialog.FileName, ici, encoderParameters);
             }
             catch (Exception ex)
             {
