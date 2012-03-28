@@ -6,8 +6,20 @@ using System.Drawing.Imaging;
 using System.IO;
 namespace ClipimageToFile
 {
+    enum SaveImageType { NONE,BMP,PNG,JPG, }
     static class Program
     {
+        static bool isEqualCodec(string c, SaveImageType t)
+        {
+            if (t == SaveImageType.BMP && c == "bmp")
+                return true;
+            if (t == SaveImageType.JPG && ((c == "jpg") || (c=="jpeg")))
+                return true;
+            if (t == SaveImageType.PNG && c == "png")
+                return true;
+
+            return false;
+        }
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
@@ -17,10 +29,42 @@ namespace ClipimageToFile
             // Application.EnableVisualStyles();
             // Application.SetCompatibleTextRenderingDefault(false);
             bool isFileClipboard = false;
-            foreach (string arg in args)
+            SaveImageType sit = SaveImageType.PNG;
+
+            for(int i=0 ; i < args.Length ; ++i)
             {
-                if (arg == "/c" || arg == "-c")
+                 string arg = args[i];
+                if (arg == "/c")
+                {
                     isFileClipboard = true;
+                }
+                else if(arg=="/t")
+                {
+                    if ((i + 1) != args.Length)
+                    {
+                        ++i;
+                        arg = args[i];
+                        arg = arg.ToLower();
+                        if (arg == "bmp")
+                        {
+                            sit = SaveImageType.BMP;
+                        }
+                        else if (arg == "jpg" || arg == "jpeg")
+                        {
+                            sit = SaveImageType.JPG;
+                        }
+                        else if (arg == "png")
+                        {
+                            sit = SaveImageType.PNG;
+                        }
+                        else
+                        {
+                            MessageBox.Show(Properties.Resources.INVALID_IMAGE_TYPE + " \"" + arg + "\"",
+                                Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return;
+                        }
+                    }
+                }
             }
 
             Object o = Clipboard.GetData(DataFormats.Bitmap);
@@ -38,8 +82,29 @@ namespace ClipimageToFile
 
                 if (isFileClipboard)
                 {
-                    string tempfile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() + ".png";
-                    b.Save(tempfile, ImageFormat.Png);
+                    string clipfileext=null;
+                    ImageFormat clipimagef=null;
+                    switch (sit)
+                    {
+                        case SaveImageType.BMP:
+                            clipfileext = ".bmp";
+                            clipimagef = ImageFormat.Bmp;
+                            break;
+
+                        case SaveImageType.JPG:
+                            clipfileext = ".jpg";
+                            clipimagef = ImageFormat.Jpeg;
+                            break;
+
+                        case SaveImageType.PNG:
+                            clipfileext = ".png";
+                            clipimagef = ImageFormat.Png;
+                            break;
+
+                    }
+
+                    string tempfile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() +clipfileext;
+                    b.Save(tempfile, clipimagef);
 
                     //切り取るファイルのパス
                     string[] fileNames = { tempfile };
@@ -68,6 +133,8 @@ namespace ClipimageToFile
                     System.Collections.ArrayList arFilers = new System.Collections.ArrayList();
                     string filter = string.Empty;
                     ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+                    int filtin = 0;
+                    int i=0;
                     foreach (ImageCodecInfo codec in codecs)
                     {
                         if ((codec.Flags & ImageCodecFlags.Encoder) != 0)
@@ -79,11 +146,16 @@ namespace ClipimageToFile
                                 ext = ext.ToLower();
                                 filter += codec.FormatDescription + " (" + ext + ")|" + ext + "|";
 
+                                if(isEqualCodec(codec.FormatDescription.ToLower(),sit))
+                                    filtin = i;
+
                                 arFilers.Add(codec);
+                                ++i;
                             }
                         }
                     }
                     ofd.OpenDialog.Filter = filter.TrimEnd('|');
+                    ofd.OpenDialog.FilterIndex = filtin+1;
                     if (DialogResult.OK != ofd.ShowDialog())
                         return;
 
