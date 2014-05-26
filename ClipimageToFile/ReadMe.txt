@@ -19,6 +19,9 @@ ClipimageToFile.exe /c /t jpg
 
 
 —š—ğF
+2014/5/30
+ver1.0.0.1
+
 2011/8/27
 ŒöŠJ
 
