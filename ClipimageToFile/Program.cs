@@ -119,6 +119,20 @@ namespace ClipimageToFile
                     //クリップボードに切り取る
                     Clipboard.Clear();
                     Clipboard.SetDataObject(data, true);
+
+
+                    // show balloon
+                    int waitspan = 5 * 1000;
+                    NotifyIcon ni = new NotifyIcon();
+                    ni.BalloonTipTitle = Application.ProductName;
+                    ni.BalloonTipText = Properties.Resources.IMAGE_HAS_SET_ON_CLIPBOARD;
+                    ni.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+                    ni.Text = Application.ProductName;
+                    ni.Visible = true;
+                    ni.ShowBalloonTip(waitspan);
+                    System.Threading.Thread.Sleep(waitspan);
+                    ni.Dispose();
                 }
                 else
                 {
