@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Reflection;
 namespace ClipimageToFile
 {
     enum SaveImageType { NONE,BMP,PNG,JPG, }
@@ -20,6 +21,36 @@ namespace ClipimageToFile
 
             return false;
         }
+
+
+
+                    //// show balloon
+                    //int waitspan = 5 * 1000;
+                    //NotifyIcon ni = new NotifyIcon();
+                    //ni.BalloonTipTitle = Application.ProductName;
+                    //ni.BalloonTipText = Properties.Resources.IMAGE_HAS_SET_ON_CLIPBOARD;
+                    //ni.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+
+                    //ni.Text = Application.ProductName;
+                    //ni.Visible = true;
+                    //ni.ShowBalloonTip(waitspan);
+                    //System.Threading.Thread.Sleep(waitspan);
+                    //ni.Dispose();
+
+        static void showBalloon(string message)
+        {
+            string arg = string.Format("/title:{0} /icon:{1} /iconindex:1 /duration:5000 /waitpid:{2} {3}",
+                Application.ProductName,
+                "\"" + Assembly.GetEntryAssembly().Location + "\"",
+                System.Diagnostics.Process.GetCurrentProcess().Id.ToString(),
+                System.Web.HttpUtility.UrlEncode(message));
+            System.Diagnostics.Process.Start("showballoon.exe",arg);
+
+            // System.Threading.Thread.Sleep(5000);        }                
+
+
+
+
         /// <summary>
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
@@ -103,7 +134,9 @@ namespace ClipimageToFile
 
                     }
 
-                    string tempfile = System.IO.Path.GetTempPath() + Guid.NewGuid().ToString() +clipfileext;
+                    DateTime now = DateTime.Now;
+                    string datetime = "clipshot " + now.ToShortDateString().Replace("/", "-") + " " + now.ToLongTimeString().Replace(':','-');
+                    string tempfile = System.IO.Path.GetTempPath() + datetime + clipfileext;
                     b.Save(tempfile, clipimagef);
 
                     //切り取るファイルのパス
@@ -119,20 +152,10 @@ namespace ClipimageToFile
                     //クリップボードに切り取る
                     Clipboard.Clear();
                     Clipboard.SetDataObject(data, true);
+                    Application.DoEvents();
 
+                    showBalloon(Properties.Resources.IMAGE_HAS_SET_ON_CLIPBOARD);
 
-                    // show balloon
-                    int waitspan = 5 * 1000;
-                    NotifyIcon ni = new NotifyIcon();
-                    ni.BalloonTipTitle = Application.ProductName;
-                    ni.BalloonTipText = Properties.Resources.IMAGE_HAS_SET_ON_CLIPBOARD;
-                    ni.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-
-                    ni.Text = Application.ProductName;
-                    ni.Visible = true;
-                    ni.ShowBalloonTip(waitspan);
-                    System.Threading.Thread.Sleep(waitspan);
-                    ni.Dispose();
                 }
                 else
                 {

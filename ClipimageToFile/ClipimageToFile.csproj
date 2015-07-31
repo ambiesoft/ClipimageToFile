@@ -33,6 +33,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -99,6 +100,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>copy $(ProjectDir)ReadMe.txt $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>copy $(ProjectDir)ReadMe.txt $(TargetDir)
+copy C:\Linkout\CommonExe\showballoon.exe $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
 </Project>
