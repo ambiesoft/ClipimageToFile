@@ -46,9 +46,29 @@ namespace ClipimageToFile
                 System.Web.HttpUtility.UrlEncode(message));
             System.Diagnostics.Process.Start("showballoon.exe",arg);
 
-            // System.Threading.Thread.Sleep(5000);        }                
-
+            // System.Threading.Thread.Sleep(5000);
+        }
 
+
+
+        static string get2keta(int n)
+        {
+            string ret = n.ToString();
+            if (ret.Length == 0)
+                return "00";
+            if (ret.Length == 1)
+                return "0" + ret;
+            return ret;
+        }
+
+        static string getDTString(DateTime now)
+        {
+
+            // now.ToShortDateString().Replace("/", "-") + " " + now.ToLongTimeString().Replace(':', '-');
+            string ret = now.Year.ToString() + "-" + get2keta(now.Month) + "-" + get2keta(now.Day) + " ";
+            ret += get2keta(now.Hour) + "-" + get2keta(now.Minute) + "-" + get2keta(now.Second);
+            return ret;
+        }
 
 
         /// <summary>
@@ -134,9 +154,20 @@ namespace ClipimageToFile
 
                     }
 
-                    DateTime now = DateTime.Now;
-                    string datetime = "clipshot " + now.ToShortDateString().Replace("/", "-") + " " + now.ToLongTimeString().Replace(':','-');
-                    string tempfile = System.IO.Path.GetTempPath() + datetime + clipfileext;
+                    string tempfile;
+                    while(true)
+                    {
+                        DateTime now = DateTime.Now;
+                        string datetime = "clipshot " + getDTString(now);
+                        tempfile = System.IO.Path.GetTempPath() + datetime + clipfileext;
+                        if (File.Exists(tempfile))
+                        {
+                            System.Threading.Thread.Sleep(1000);
+                            continue;
+                        }
+                        break;
+                    }
+
                     b.Save(tempfile, clipimagef);
 
                     //切り取るファイルのパス
