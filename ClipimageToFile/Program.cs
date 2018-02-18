@@ -170,19 +170,21 @@ namespace ClipimageToFile
 
                     b.Save(tempfile, clipimagef);
 
-                    //切り取るファイルのパス
+                    // file to be cut on clipboard
                     string[] fileNames = { tempfile };
-                    //ファイルドロップ形式のDataObjectを作成する
-                    IDataObject data = new DataObject(DataFormats.FileDrop, fileNames);
+                    // DataObject will be holding data
+                    DataObject data = new DataObject(DataFormats.FileDrop, fileNames);
 
-                    //DragDropEffects.Moveを設定する（DragDropEffects.Move は 2）
+                    // DragDropEffects.Move
                     byte[] bs = new byte[] { (byte)DragDropEffects.Move, 0, 0, 0 };
                     System.IO.MemoryStream ms = new System.IO.MemoryStream(bs);
                     data.SetData("Preferred DropEffect", ms);
+                    data.SetText(tempfile);
 
-                    //クリップボードに切り取る
+                    // cut onto clipbard
                     Clipboard.Clear();
                     Clipboard.SetDataObject(data, true);
+                    
                     Application.DoEvents();
 
                     showBalloon(Properties.Resources.IMAGE_HAS_SET_ON_CLIPBOARD);
