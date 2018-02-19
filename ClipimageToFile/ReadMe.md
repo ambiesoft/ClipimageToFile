@@ -1,30 +1,35 @@
-名前：ClipimageToFile
-動作環境：Windows + .NET Framework 2.0
-機能：起動するとクリップボードにある画像をファイルに保存します。
+# ClipimageToFile
 
-使い方：
-１，クリップボードに画像をコピーします。
-２，ClipimageToFileを起動します。ファイル保存ダイアログが出ます。
-３，ファイル名と画像フォーマットを指定してOKをクリックします。
+## Requirements
+.NET Framework 4.0
 
-使い方その２：
-１，クリップボードに画像をコピーします。
-２，ClipimageToFileを /c オプションで起動します。ファイルがテンプフォルダーに作られて、
-そのファイルを切り取った状態でクリップボードに置かれます。
+## Feature
+This application save images living in the clipboard.
 
-オプション：
-/tでイメージの種類を指定します。"bmp" "jpg" "png"からひとつ選びます。
-＜例＞
+## How to use
+1. Copy an image onto the clipboard.
+2. Launch *ClipimageToFile*. It will show a dialog for saving file.
+3. Enter file name and image format then click OK.
+
+## Hot to use 2
+1. Copy an image onto the clipboard.
+2. Launch *ClipimageToFile* with option **/c**. The image will be saved in a temporary folder, then the file will be copied onto clipboard as int FileDrop format.
+
+## Command line options
+Specify image format by option **/t**. It must be one of *bmp*, *jpg* or *png*.
+
+Example:
+```
 ClipimageToFile.exe /c /t jpg
+```
+## License
+MIT. See LICENSE.
+
+## Contace
+* <ambiesoft.trueff@gmail.com>
+* <https://github.com/ambiesoft/ClipimageToFile>
 
 
-履歴：
-2014/5/30
-ver1.0.0.1
-
-2011/8/27
-公開
 
 
-謝辞
-アイコンはhttp://www.flickr.com/photos/markseymour/300103809/のものをアイコン化しました。
+
