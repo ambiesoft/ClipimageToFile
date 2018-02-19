@@ -1,0 +1,32 @@
+{
+    "name": "ClipimageToFile",
+    "solution": "ClipimageToFile2017.sln",
+    "targetproject": "ClipimageToFile2017",
+    "configuration": "Release",
+    "targets": [
+        {
+            "outdir": "C:\\Linkout\\ClipimageToFile",
+            "platform": "Any CPU",
+            "setoutdirforbuild": true
+        }
+    ],
+    "ShouldBeFiles": [
+        "ClipimageToFile.exe",
+        "ClipimageToFile.pdb",
+        "Copying.txt",
+        "History.txt",
+        "LICENSE",
+        "ReadMe.jp.md",
+        "ReadMe.md",
+        "showballoon.exe",
+        "ja-JP\\ClipimageToFile.resources.dll"
+    ],
+    "TotalFileCount": 13,
+    "archivedir": "C:\\Linkout",
+    "remotedir": "http://ambiesoft.fam.cx/ffdav/uploads/ClipimageToFile/",
+    "remotesha1": "http://ambiesoft.fam.cx/ffdav/uploads/getSha1.php?file=ClipimageToFile/{}",
+    "ShouldNotBeFiles": [],
+    "ShouldBeOneOfThem": [],
+    "obtainverfrom": "history.txt",
+    "obtainverregex": "\\d+\\.\\d+"
+}

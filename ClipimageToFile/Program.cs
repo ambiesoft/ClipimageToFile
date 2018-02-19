@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
+using System.Text;
+
 namespace ClipimageToFile
 {
     enum SaveImageType { NONE,BMP,PNG,JPG, }
@@ -88,6 +90,25 @@ namespace ClipimageToFile
                 if (arg == "/c")
                 {
                     isFileClipboard = true;
+                }
+                else if(arg=="/v" || arg=="-v")
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.Append(Application.ProductName);
+                    sb.Append(" ");
+                    sb.Append("version");
+                    sb.Append(" ");
+
+                    sb.AppendLine(Ambiesoft.AmbLib.GetSimpleVersion(Assembly.GetExecutingAssembly()));
+
+                    sb.AppendLine();
+                    sb.Append("Copyright 2018 Ambiesoft");
+
+                    MessageBox.Show(sb.ToString(),
+                        Application.ProductName,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+                    return;
                 }
                 else if(arg=="/t")
                 {
@@ -232,7 +253,7 @@ namespace ClipimageToFile
                     ImageCodecInfo ici = (ImageCodecInfo)arFilers[ofd.OpenDialog.FilterIndex - 1];
 
                     EncoderParameters encoderParameters = new EncoderParameters(1);
-                    encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, 100L);
+                    encoderParameters.Param[0] = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L);
                     b.Save(ofd.OpenDialog.FileName, ici, encoderParameters);
                 }
             }
