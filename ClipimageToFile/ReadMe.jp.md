@@ -26,6 +26,6 @@ ClipimageToFile.exe /c /t jpg
 
 ## 作者への連絡先
 * 電子メール <ambiesoft.trueff@gmail.com>
-* 掲示板 http://ambiesoft.fam.cx/minibbs/minibbs.php
+* 掲示板 <http://ambiesoft.fam.cx/minibbs/minibbs.php>
 * 開発 <https://github.com/ambiesoft/ClipimageToFile>
 
