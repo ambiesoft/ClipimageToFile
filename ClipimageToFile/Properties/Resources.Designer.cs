@@ -19,7 +19,7 @@ namespace ClipimageToFile.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -57,6 +57,42 @@ namespace ClipimageToFile.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saves the image on the clipboard to a temporary file and &apos;cut&apos; the file into the clipboard.
+        /// </summary>
+        internal static string ID_C_HELP {
+            get {
+                return ResourceManager.GetString("ID_C_HELP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows help.
+        /// </summary>
+        internal static string ID_SHOW_HELP {
+            get {
+                return ResourceManager.GetString("ID_SHOW_HELP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Image format, &apos;bmp&apos;, &apos;png&apos; or &apos;jpg&apos;.
+        /// </summary>
+        internal static string ID_T_HELP {
+            get {
+                return ResourceManager.GetString("ID_T_HELP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown option: {0}.
+        /// </summary>
+        internal static string ID_UNKNOW_OPTION {
+            get {
+                return ResourceManager.GetString("ID_UNKNOW_OPTION", resourceCulture);
             }
         }
         

@@ -6,6 +6,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using Ambiesoft;
 
 namespace ClipimageToFile
 {
@@ -24,21 +25,6 @@ namespace ClipimageToFile
             return false;
         }
 
-
-
-                    //// show balloon
-                    //int waitspan = 5 * 1000;
-                    //NotifyIcon ni = new NotifyIcon();
-                    //ni.BalloonTipTitle = Application.ProductName;
-                    //ni.BalloonTipText = Properties.Resources.IMAGE_HAS_SET_ON_CLIPBOARD;
-                    //ni.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
-
-                    //ni.Text = Application.ProductName;
-                    //ni.Visible = true;
-                    //ni.ShowBalloonTip(waitspan);
-                    //System.Threading.Thread.Sleep(waitspan);
-                    //ni.Dispose();
-
         static void showBalloon(string message)
         {
             string arg = string.Format("/title:{0} /icon:{1} /iconindex:1 /duration:5000 /waitpid:{2} {3}",
@@ -47,11 +33,7 @@ namespace ClipimageToFile
                 System.Diagnostics.Process.GetCurrentProcess().Id.ToString(),
                 System.Web.HttpUtility.UrlEncode(message));
             System.Diagnostics.Process.Start("showballoon.exe",arg);
-
-            // System.Threading.Thread.Sleep(5000);
         }
-
-
 
         static string get2keta(int n)
         {
@@ -65,8 +47,6 @@ namespace ClipimageToFile
 
         static string getDTString(DateTime now)
         {
-
-            // now.ToShortDateString().Replace("/", "-") + " " + now.ToLongTimeString().Replace(':', '-');
             string ret = now.Year.ToString() + "-" + get2keta(now.Month) + "-" + get2keta(now.Day) + " ";
             ret += get2keta(now.Hour) + "-" + get2keta(now.Minute) + "-" + get2keta(now.Second);
             return ret;
@@ -74,13 +54,14 @@ namespace ClipimageToFile
 
 
         /// <summary>
-        /// アプリケーションのメイン エントリ ポイントです。
+        /// 
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            // Application.EnableVisualStyles();
-            // Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             bool isFileClipboard = false;
             SaveImageType sit = SaveImageType.PNG;
 
@@ -91,21 +72,44 @@ namespace ClipimageToFile
                 {
                     isFileClipboard = true;
                 }
-                else if(arg=="/v" || arg=="-v")
+                else if(arg=="/v" || arg=="-v" ||
+                    arg=="/h" || arg=="-h" || arg=="/?" || arg=="--help")
                 {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append(Application.ProductName);
-                    sb.Append(" ");
-                    sb.Append("version");
-                    sb.Append(" ");
+                    StringBuilder sbMessage = new StringBuilder();
 
-                    sb.AppendLine(Ambiesoft.AmbLib.GetSimpleVersion(Assembly.GetExecutingAssembly()));
-
-                    sb.AppendLine();
-                    sb.Append("Copyright 2018 Ambiesoft");
-
-                    MessageBox.Show(sb.ToString(),
+                    sbMessage.AppendFormat("{0} - {1}",
                         Application.ProductName,
+                        "Save an image on the clipboard to a file");
+                    sbMessage.AppendLine();
+                    sbMessage.AppendLine();
+                    sbMessage.AppendLine("Usage:");
+                    sbMessage.AppendFormat("{0} {1}",
+                        Path.GetFileNameWithoutExtension(Application.ExecutablePath),
+                        "[/c] [/t [png|jpg]] [/h]");
+                    sbMessage.AppendLine();
+                    sbMessage.AppendLine();
+
+                    string optionformat = "{0}\t{1}";
+
+                    sbMessage.AppendFormat(optionformat,
+                        "-h", Properties.Resources.ID_SHOW_HELP);
+                    sbMessage.AppendLine();
+
+                    sbMessage.AppendFormat(optionformat,
+                        "/c", Properties.Resources.ID_C_HELP);
+                    sbMessage.AppendLine();
+
+                    sbMessage.AppendFormat(optionformat,
+                        "/t", Properties.Resources.ID_T_HELP);
+                    sbMessage.AppendLine();
+
+                    sbMessage.AppendLine();
+                    sbMessage.AppendLine("Copyright 2019 Ambiesoft http://ambiesoft.fam.cx/");
+
+                    MessageBox.Show(sbMessage.ToString(),
+                        string.Format("{0} version {1}",
+                        Application.ProductName, 
+                        AmbLib.getAssemblyVersion(Assembly.GetExecutingAssembly(),3)),
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     return;
@@ -136,6 +140,15 @@ namespace ClipimageToFile
                             return;
                         }
                     }
+                }
+                else
+                {
+                    MessageBox.Show(
+                        string.Format(Properties.Resources.ID_UNKNOW_OPTION, arg),
+                        Application.ProductName,
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
                 }
             }
 

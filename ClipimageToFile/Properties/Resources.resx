@@ -112,11 +112,23 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ID_C_HELP" xml:space="preserve">
+    <value>Saves the image on the clipboard to a temporary file and 'cut' the file into the clipboard</value>
+  </data>
+  <data name="ID_SHOW_HELP" xml:space="preserve">
+    <value>Shows help</value>
+  </data>
+  <data name="ID_T_HELP" xml:space="preserve">
+    <value>Image format, 'bmp', 'png' or 'jpg'</value>
+  </data>
+  <data name="ID_UNKNOW_OPTION" xml:space="preserve">
+    <value>Unknown option: {0}</value>
+  </data>
   <data name="IMAGE_HAS_SET_ON_CLIPBOARD" xml:space="preserve">
     <value>Image has set on the clipboard.</value>
   </data>

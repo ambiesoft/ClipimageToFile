@@ -112,11 +112,23 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ID_C_HELP" xml:space="preserve">
+    <value>クリップボード上の画像を一時ファイルに保存し、そのファイルをクリップボードにカットします</value>
+  </data>
+  <data name="ID_SHOW_HELP" xml:space="preserve">
+    <value>ヘルプを表示します</value>
+  </data>
+  <data name="ID_T_HELP" xml:space="preserve">
+    <value>イメージの形式、bmpまたはpngまたはjpg</value>
+  </data>
+  <data name="ID_UNKNOW_OPTION" xml:space="preserve">
+    <value>'{0}'は知らないオプションです</value>
+  </data>
   <data name="IMAGE_HAS_SET_ON_CLIPBOARD" xml:space="preserve">
     <value>画像をクリップボードにセットしました。</value>
   </data>
