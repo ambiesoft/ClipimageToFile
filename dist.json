@@ -1,7 +1,7 @@
 {
     "name": "ClipimageToFile",
-    "solution": "ClipimageToFile2017.sln",
-    "targetproject": "ClipimageToFile2017",
+    "solution": "ClipimageToFile.sln",
+    "targetproject": "ClipimageToFile",
     "configuration": "Release",
     "targets": [
         {
@@ -19,12 +19,18 @@
         "ReadMe.jp.md",
         "ReadMe.md",
         "showballoon.exe",
-        "ja-JP\\ClipimageToFile.resources.dll"
+        "ja-JP\\ClipimageToFile.resources.dll",
+        "Ambiesoft.AmbLib.pdb",
+		"Ambiesoft.Profile.pdb",
+		"Ambiesoft.AmbLibcpp.dll",
+		"Ambiesoft.AmbLibcpp.pdb",
+		"Ambiesoft.AmbLib.dll",
+		"Ambiesoft.Profile.dll"
     ],
-    "TotalFileCount": 13,
+    "TotalFileCount": "exact",
     "archivedir": "C:\\Linkout",
-    "remotedir": "http://ambiesoft.fam.cx/ffdav/uploads/ClipimageToFile/",
-    "remotesha1": "http://ambiesoft.fam.cx/ffdav/uploads/getSha1.php?file=ClipimageToFile/{}",
+    "remotedir": "http://ambiesoft.mooo.com/ffdav/uploads/ClipimageToFile/",
+    "remotesha1": "http://ambiesoft.mooo.com/ffdav/uploads/getSha1.php?file=ClipimageToFile/{}",
     "ShouldNotBeFiles": [],
     "ShouldBeOneOfThem": [],
     "obtainverfrom": "history.txt",
