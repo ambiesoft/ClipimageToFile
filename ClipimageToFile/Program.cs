@@ -27,7 +27,7 @@ namespace ClipimageToFile
 
         static void showBalloon(string message)
         {
-            string arg = string.Format("/title:{0} /icon:{1} /iconindex:1 /duration:5000 /waitpid:{2} {3}",
+            string arg = string.Format("/title:{0} /icon:{1} /defaulticon /duration:5000 /waitpid:{2} {3}",
                 Application.ProductName,
                 "\"" + Assembly.GetEntryAssembly().Location + "\"",
                 System.Diagnostics.Process.GetCurrentProcess().Id.ToString(),
