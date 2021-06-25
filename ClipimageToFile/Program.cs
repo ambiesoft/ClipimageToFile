@@ -105,9 +105,11 @@ namespace ClipimageToFile
                     sbMessage.AppendLine();
 
                     sbMessage.AppendLine();
-                    sbMessage.AppendLine("Copyright 2019 Ambiesoft http://ambiesoft.fam.cx/");
+                    sbMessage.AppendLine("Copyright 2019 Ambiesoft");
+                    sbMessage.AppendLine("https://ambiesoft.github.io/webjumper/?target=ClipimageToFile");
 
-                    MessageBox.Show(sbMessage.ToString(),
+                    JR.Utils.GUI.Forms.FlexibleMessageBox.Show(
+                        sbMessage.ToString(),
                         string.Format("{0} version {1}",
                         Application.ProductName, 
                         AmbLib.getAssemblyVersion(Assembly.GetExecutingAssembly(),3)),
