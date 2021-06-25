@@ -25,7 +25,9 @@
 		"Ambiesoft.AmbLibcpp.dll",
 		"Ambiesoft.AmbLibcpp.pdb",
 		"Ambiesoft.AmbLib.dll",
-		"Ambiesoft.Profile.dll"
+		"Ambiesoft.Profile.dll",
+		"FlexibleMessageBox.dll",
+              "FlexibleMessageBox.pdb"
     ],
     "TotalFileCount": "exact",
     "archivedir": "C:\\Linkout",
