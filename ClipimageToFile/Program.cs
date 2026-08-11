@@ -220,7 +220,8 @@ namespace ClipimageToFile
 
                     // cut onto clipbard
                     Clipboard.Clear();
-                    Clipboard.SetDataObject(data, true);
+                    TrySetClipboard(data);
+                    // Clipboard.SetDataObject(data, true);
                     
                     Application.DoEvents();
 
@@ -280,6 +281,34 @@ namespace ClipimageToFile
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             }
+        }
+
+        // add this helper inside the Program class (near other static helpers)
+        static void TrySetClipboard(DataObject data, int retries = 20, int delayMs = 100)
+        {
+            for (int i = 0; i < retries; ++i)
+            {
+                try
+                {
+                    Clipboard.SetDataObject(data, true);
+                    return;
+                }
+                catch (System.Runtime.InteropServices.ExternalException e)
+                {
+                    // clipboard is busy, wait and retry
+                    // System.Threading.Thread.Sleep(delayMs);
+                    if (e.ErrorCode == -2147221040)
+                    {
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    // other intermittent errors: wait and retry
+                    System.Threading.Thread.Sleep(delayMs);
+                }
+            }
+            Clipboard.SetDataObject(data, true);
         }
     }
 }
